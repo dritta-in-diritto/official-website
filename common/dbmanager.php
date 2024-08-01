@@ -1,19 +1,12 @@
 <?php
 
 class dbManager{
-	
-        private $user = 'drittaindiritto';
+	private $user = 'drittaindiritto';
 	private $pass = 'drittaindiritto';
 	private $db_name = 'drittaindiritto';
 	private $host = 'localhost';
 	private $connection = NULL;
-/*
-        private $user = 'Sql448215';
-	private $pass = 'da9f31a7';
-	private $db_name = 'Sql448215_1';
-	private $host = '62.149.150.131';
-	private $connection = NULL;
-*/
+
 	function __construct() {
             $this->connection = new mysqli($this->host, $this->user, $this->pass, $this->db_name);
 	}
@@ -24,7 +17,7 @@ class dbManager{
 
         
         function aggiungi_utente( $utente ){
-            $sql = "INSERT INTO utenti (`id_utente`, `nome`, `cognome`, `codice_fiscale`, `cap`, `citta`, `indirizzo`, `email`, `username`, `password`) VALUES (NULL, '{$utente['nome']}', '{$utente['cognome']}', '{$utente['codicefiscale']}', '{$utente['cap']}', '{$utente['citta']}', '{$utente['indirizzo']}', '{$utente['email']}', '{$utente['username']}', '{$utente['password']}');";
+            $sql = "INSERT INTO utenti (`id_utente`, `nome`, `cognome`, `codice_fiscale`, `indirizzo`, `email`, `username`, `password`) VALUES (NULL, '{$utente['nome']}', '{$utente['cognome']}', '{$utente['codicefiscale']}', '{$utente['indirizzo']}', '{$utente['email']}', '{$utente['username']}', '{$utente['password']}');";
 
             if( $this->connection->query($sql)=== TRUE ){ 
                 return $this->connection->insert_id;
@@ -55,22 +48,9 @@ class dbManager{
             return $toReturn;
         }
 
-        function get_utente_by_email( $email ){
-            $toReturn = false;
-            if( empty($email) ){
-                return $toReturn;
-            }
-            $sql = "SELECT * FROM utenti WHERE email = '$email' ";
-            if( ($result = $this->connection->query($sql)) && ( $this->connection->affected_rows>0 ) ){
-                $riga = mysqli_fetch_array($result);
-                $toReturn = $riga;
-            }
-            return $toReturn;
-        }
-
 
         function modifica_utente( $utente ){
-            $sql = "UPDATE utenti SET nome = '{$utente['nome']}', cognome = '{$utente['cognome']}', codice_fiscale = '{$utente['codice_fiscale']}', cap = '{$utente['cap']}', citta = '{$utente['citta']}', indirizzo = '{$utente['indirizzo']}', email = '{$utente['email']}'  WHERE id_utente = {$utente['id_utente']} LIMIT 1;";
+            $sql = "UPDATE utenti SET nome = '{$utente['nome']}', cognome = '{$utente['cognome']}', codice_fiscale = '{$utente['codice_fiscale']}', indirizzo = '{$utente['indirizzo']}', email = '{$utente['email']}'  WHERE id_utente = {$utente['id_utente']} LIMIT 1;";
             if( $this->connection->query($sql) === TRUE ){
                 return true;
             }
@@ -263,20 +243,6 @@ class dbManager{
             else{
                 return false;
             }
-        }
-
-        function get_ultime_news( $max_num_news ){
-            $toReturn = NULL;
-            $indice = 0;
-            $sql = "SELECT * FROM news ORDER BY id_news DESC LIMIT $max_num_news";
-            if( ($risultato = $this->connection->query($sql)) && ($this->connection->affected_rows>0) ){
-                while ( $riga = mysqli_fetch_assoc($risultato) ){
-                    $toReturn[$indice]=$riga;
-                    $indice++;
-                }
-            }
-            return $toReturn;
-
         }
 
 }

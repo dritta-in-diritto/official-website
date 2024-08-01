@@ -5,20 +5,19 @@ if( empty($_POST['modifica']) ){
     exit();
 }
 
-//verifica login
-session_start();
-include 'common/verifica_login.php';
+//verifica Admin mode
+include '../common/verifica_adm_mode.php';
 //fine verifica login
 
 
-include 'common/dbmanager.php';
+include '../common/dbmanager.php';
 $managerSql = new dbManager();
 
 //modifica dati fatturazione
 if($_POST['modifica'] == "fatturazione"){
 
     $utente = array();
-    $utente['id_utente'] = $_SESSION['id'];
+    $utente['id_utente'] = $_POST['id_utente'];
     $utente['nome'] = addslashes( $_POST['nome'] );
     $utente['cognome'] = addslashes( $_POST['cognome'] );
     $utente['codice_fiscale'] = strtoupper( $_POST['codice_fiscale'] );
@@ -26,7 +25,7 @@ if($_POST['modifica'] == "fatturazione"){
     $utente['email'] = addslashes( $_POST['email'] );
 
     if ( $managerSql->modifica_utente($utente) ){
-        header('Location: profilo_view.php?id='.$utente['id_utente']);
+        header('Location: lista_utenti.php');
     }else{
         header('Location: error.php?code=4');
     }
@@ -36,15 +35,12 @@ if($_POST['modifica'] == "fatturazione"){
 //modifica dati accesso
 if($_POST['modifica'] == "password"){
     
-    $utente = $managerSql->get_utente($_SESSION['id']);
-    if( ($utente['username']==$_SESSION['username']) && ($utente['password']==md5($_POST['password'])) ){
-        if ($managerSql->modifica_password($utente, md5($_POST['nuova_password'])) ){
-            header('Location: profilo_view.php?id='.$utente['id_utente']);
-            exit();
-        }
-    }else{
-        header('Location: error.php?code=4');
+    $utente = $managerSql->get_utente( $_POST['id_utente'] );
+    if ($managerSql->modifica_password($utente, md5($_POST['nuova_password'])) ){
+        header('Location: lista_utenti.php' );
+        exit();
     }
+
 }
 
 ?>

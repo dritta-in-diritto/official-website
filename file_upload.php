@@ -24,14 +24,7 @@ if( array_key_exists('nuovo_file', $_FILES) && ($_FILES['nuovo_file']['error']==
         if ($id_file = $managerSql->aggiungi_file($utente, $nome) ){
             mkdir("$path/$id_file");
             rename($path . $nome, $path . $id_file . '/' .$nome );
-            header('Location: myprofile.php');
-
-            //mail di avvenuta ricezione file
-            $testo = "<p>Lo staff di drittaindiritto.it ha ricevuto il file $nome </p>";
-            include 'common/mail/mail.php';
-            invia_mail( $testo, 'File ricevuto', $utente['email']);
-
-
+            header('Location: lista_file_u.php');
         }
     }else{
         header('Location: error.php?code=8');
@@ -42,6 +35,9 @@ if( array_key_exists('nuovo_file', $_FILES) && ($_FILES['nuovo_file']['error']==
     header('Location: error.php?code=7');
     exit();
 }
+
+
+
 
 
 ?>

@@ -12,7 +12,7 @@ if ( $utente = $managerSql->cerca_utente($_POST['username'], md5($_POST['passwor
     session_unset();
     $_SESSION['id'] = $utente['id_utente'];
     $_SESSION['username'] = $utente['username'];
-    header('Location: myprofile.php?id='.$utente['id_utente']);
+    header('Location: profilo_view.php?id='.$utente['id_utente']);
 }else{
     session_unset();
     session_destroy();
