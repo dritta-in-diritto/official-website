@@ -1,0 +1,85 @@
+﻿
+@charset "utf-8";
+
+
+		/************************************************/
+		/* 		CSS Document							*/
+		/*		Created by Alberto Marà					*/
+		/*		All right reserved°						*/
+		/************************************************/
+		/************************************************/
+		/*		Attenzione, il presentefile è			*/
+		/*		parte integrante della formatta-		*/
+		/*		zione grafica del sito. I dirit-		*/
+		/*		ti ad esso correlati, al sito, e		*/
+		/*		alle foto ed elementi ad esso			*/
+		/*		connessi sono di esclusiva pro-			*/
+		/*		prietà del designer. Non copiare		*/
+		/*		e/o modificare in alcun modo, pa-		*/
+		/*		rti, valori, immagini connesse o		*/
+		/*		altro senza specifica autorizza-		*/
+		/*		zione da parte del proprietario. 		*/
+		/************************************************/
+		/************************************************/
+		/*		Il materiale presente, il sito			*/
+		/*		in generale, e le parti ad esso			*/
+		/*		connesse sono registrate con			*/
+		/*		marca da bollo opponibile per			*/
+		/*		legge contro terzi.						*/
+		/************************************************/
+		/*		www.Albertomara.it						*/
+		/************************************************/
+
+
+
+
+/*form format*/
+#form_datiright{
+		display:inline-block;
+		vertical-align:top;
+		margin-top:4px;
+		margin-left:5px;
+}
+.inputmod1{
+	width:200px;
+	margin-top:5px;
+	border:none;
+	background-color:#333;
+	color:#FFF;
+	font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold;	
+	}	.inputmod1:hover{ color:#FC0; }
+
+.inputmod2{
+	width:200px;
+	margin-top:4px;
+	border:none;
+	background-color:#333;
+	color:#FFF;
+	font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold;
+ 	}	.inputmod2:hover{ color:#FC0; }
+
+.inputmod_provincia{
+		width:50px;
+		margin-top:5px;
+		border:none;
+		background-color:#333;
+		color:#FFF;
+		font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold;	
+		}	.inputmod_provincia:hover{ color:#FC0; }
+
+.inputmod_disable{
+	width:200px;
+	margin-top:5px;
+	border:none;
+	background-color:#333;
+	color:#666;
+	font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold;	
+}
+
+.input_logereg {	width:230px; border:none; background-color:#333; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; }
+.nav_log { 	font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; color:#000;} 
+.login { margin-top:30px; margin-left:30px;}
+
+.submit{ border:none; background:#333; width:200px; font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; color:#fff;}
+.submit:hover{ color:#FC0;}
+.obb{ font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; color:#F00; }

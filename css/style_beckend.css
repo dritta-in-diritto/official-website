@@ -1,0 +1,209 @@
+﻿
+@charset "utf-8";
+
+
+
+		/************************************************/
+		/* 		CSS Document							*/
+		/*		Created by Alberto Marà					*/
+		/*		All right reserved°						*/
+		/************************************************/
+		/************************************************/
+		/*		Attenzione, il presentefile è			*/
+		/*		parte integrante della formatta-		*/
+		/*		zione grafica del sito. I dirit-		*/
+		/*		ti ad esso correlati, al sito, e		*/
+		/*		alle foto ed elementi ad esso			*/
+		/*		connessi sono di esclusiva pro-			*/
+		/*		prietà del designer. Non copiare		*/
+		/*		e/o modificare in alcun modo, pa-		*/
+		/*		rti, valori, immagini connesse o		*/
+		/*		altro senza specifica autorizza-		*/
+		/*		zione da parte del proprietario. 		*/
+		/************************************************/
+		/************************************************/
+		/*		Il materiale presente, il sito			*/
+		/*		in generale, e le parti ad esso			*/
+		/*		connesse sono registrate con			*/
+		/*		marca da bollo opponibile per			*/
+		/*		legge contro terzi.						*/
+		/************************************************/
+		/*		www.Albertomara.it						*/
+		/************************************************/
+
+
+
+
+/*Format Page********************************************************************************************/
+/**/html{
+		border:none;
+		margin:0px 0px 0px 0px;
+		padding:0px 0px 0px 0px;
+		display:block;
+		}
+	
+/**/body{
+		cursor: url("../image/common/cur.png"), auto;
+		
+		background-image:url(../image/common/background.jpg);
+		background-position:top; background-repeat:no-repeat;
+		background-color:#fff; color:#000;
+		margin-left:auto; margin-right:auto; text-align:center;
+		}
+	
+/**/a:link, a:visited, a:hover, a:active{
+		border:none;
+		border:0px;
+		text-decoration:none;
+		color:#000;
+		} a:hover	{
+			color:#F90; 
+			cursor: url("../image/common/cur_link.png"), pointer;
+			}
+
+/**/img { margin:0 0 0 0; border:0 0 0 0; padding:0 0 0 0;}
+	
+/**/br{	height:5px;	}
+	
+/**/hr{	background-color:#666;
+		border: thin solid #CCC;
+		height:2px;
+		width:100%;
+		}
+
+/**//*Titoli*/		h1{	font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:20pt;
+						color:#FFE200; text-align:left; line-height:25px; letter-spacing: -2px;}
+						
+/**//*Sottotitoli*/	h2{	font-family:Arial, Helvetica, sans-serif; font-weight:bolder; font-size:12pt;
+						color:#000;	text-align:left; line-height:13px; margin-top:-18px; letter-spacing: -1px;}
+						
+/**//*Scritture*/	h3{	font-family:Tahoma, Geneva, sans-serif; font-weight:100; font-size:8pt;
+						color:#FFF;	text-align:justify; line-height:12px;}
+						
+/**//*Marcature*/	h4{	font-family:Tahoma, Geneva, sans-serif;	font-weight:bolder; font-size:8pt;
+						color:#F5F5F5; text-align:left; line-height:12px; text-decoration:underline;}
+						
+/**//*Corsive*/ 	h5{ font-family:Tahoma, Geneva, sans-serif;	font-weight:100; font-size:8pt; font-style:italic;
+						color:#FC0; text-align:left; line-height:12px;}
+						
+/**//*Diciture*/	h6{	font-family:Tahoma, Geneva, sans-serif;	font-size:7pt; font-style:italic;
+						color:#F5F5F5; text-align:left; padding:5 5 5 5;}
+						
+/**//*Annotazioni*/	h7{	font-family:Tahoma, Geneva, sans-serif;	font-size:7pt;
+						color:#FC0; text-align:left; padding:5 5 5 5;}
+
+
+/*Format Blocks*****************************************************************************************/
+#navigation {
+	margin-left:auto; margin-right:auto;
+	margin-top:0px; margin-bottom:0px;
+	padding:0px 0px 0px 0px;
+	height:100px; width:770px;
+	overflow:hidden;
+	text-align:left;
+	}
+
+#header	{
+	margin:0 auto 0 auto;
+	height:240px; width:770px;
+	}
+
+#content {
+	margin:0 auto 0 auto;
+	height:auto; width:770px;
+	text-align:left;
+	position:relative;
+	clear:both;
+	}
+
+#footer {
+	margin:0 auto 0 auto;
+	height:auto; width:750px;
+	text-align:center;
+	}
+
+
+/*Format Box********************************************************************************************/
+	
+	/*Nav_box*/
+	#nav_box {
+	height:100%; width:100%;
+	margin-top:0px; margin-bottom:0px;
+	margin-left:0px; margin-right:0px;
+	}	.nav_voice {
+		font-family:"Arial Black", Gadget, sans-serif; font-size:12px; color:#000; }
+	
+	/*usermod_box*/
+	#usermod_box{
+	position:absolute; z-index:3999999; background:#333;
+	margin-left:5%; margin-top:-300px;
+	width:800px; height:600px; visibility:hidden;
+	background:url(../image/usermod_box/background_modprofile.png) center no-repeat;
+	}	#wrap_pops {
+		width:500px; height:auto;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:150px;
+		text-align:left;
+		}	#user_datileft {
+		display:inline-block;
+		vertical-align:top;
+		margin-top:20px; margin-left:15px;
+		}	.nodato {
+			font-family:"Arial Black", Gadget, sans-serif; font-size:14px; color:#000; margin-top:-10px; }
+		#arrowwrap{
+		display:inline-block;
+		vertical-align:top;
+		margin-top:7px; }
+		#user_datiright{
+		display:inline-block;
+		vertical-align:top;
+		margin-top:20px;
+		margin-left:5px;
+		}	#_name, #_surname, #_birthplace, #_birthday, #_fiscode, #_user, #_pass, #_mail  {
+			font-family:"Arial Black", Gadget, sans-serif; font-size:14px; color:#000; margin-top:-10px; }
+
+	/*Select_box*/
+	#select_box { width:auto; height:auto;
+	}	.selected	{ width:auto; height:auto;
+		} .selected:hover {	}
+		
+	/*userlist_box*/
+	#userlist_box { height:auto; width:80%; margin-left:auto; margin-right:auto; text-align:left;
+	}	.td_user	{ width:75%;}
+				
+
+	/*upload_box*/
+	#upload_box { height:auto; width:80%; margin-left:auto; margin-right:auto; text-align:left;
+	}	.td_list{ width:65%;}
+	
+	/*uploadnowBox*/
+	#uploadnow_box{
+	position:absolute; z-index:4999999;
+	margin-left:-20px; margin-top:-150px;
+	width:800px; height:600px; visibility:hidden;
+	background:url(../image/uploadnow_box/background_uploadnow_box.png) center no-repeat; }
+	
+	/*downlist_box*/
+	#downlist_box { height:auto; width:80%; margin-left:auto; margin-right:auto; text-align:left;
+	}	.td_list{ width:65%;}
+	
+	/*newsmod_box*/
+	#newsmod_box { height:auto; width:80%; margin-left:auto; margin-right:auto; text-align:left;
+	}	.td_list{ width:65%;}
+	
+	
+	/*common*/
+	.action {	font-family:"Arial Black", Gadget, sans-serif; font-size:12px; color:#000; cursor:pointer;
+		}	.action:hover { color:#FC0;}
+	.noaction	{font-family:"Arial Black", Gadget, sans-serif; font-size:12px; color:#000; font-variant:small-caps;}
+	
+			
+	/*footBox*/
+	#foot{
+	margin-left:auto; margin-right:auto;
+	height:auto; width:700px;
+	text-align:center;
+	}	.foot{
+		font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000; margin-top:-10px; margin-left:-5px; }
+
