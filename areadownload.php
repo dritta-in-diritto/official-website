@@ -26,18 +26,32 @@
                 
                 
                 
-        	<!--NAVIGAZIONE-->        
-        	<div id="navigation">
-            	
-                <div id="nav_box">
-					<!--BOX DI NAVIGAZIONE-->
-                    <a class="nav_voice" href="index.php">HOME PAGE</a>&nbsp;/
-                    <a class="nav_voice" href="myprofile.php">MyPROFILE</a>&nbsp;/
-                    <a class="nav_voice">INFO & NOTE LEGALI</a>&nbsp;/
-                    <a class="nav_voice">CONTATTO</a>&nbsp;
-                </div>
-            
-            </div>
+        	<!--NAVIGAZIONE--> 
+	<div id="navigation">       
+		<div id="nav_box">
+		
+		
+			
+			<div style="margin-top:10px;">
+			<a class="nav_voice" href="index.php">
+				<img src="common/menu/home_off.png" onmouseover='this.src = "common/menu/home_on.png";' onmouseout='this.src="common/menu/home_off.png";'/>
+			</a><img src="common/menu/space.png" />
+			
+			<a class="nav_voice" href="myprofile.php">
+				<img src="common/menu/myprof_off.png" onmouseover='this.src = "common/menu/myprof_on.png";' onmouseout='this.src="common/menu/myprof_off.png";'/>
+			</a><img src="common/menu/space.png" />
+			
+			<a class="nav_voice"  href="download/Contratto.pdf">
+				<img src="common/menu/note_off.png" onmouseover='this.src = "common/menu/note_on.png";' onmouseout='this.src="common/menu/note_off.png";'/>
+			</a><img src="common/menu/space.png" />
+			
+			<a class="nav_voice" href="contatti.php">
+				<img src="common/menu/contact_off.png" onmouseover='this.src = "common/menu/contact_on.png";' onmouseout='this.src="common/menu/contact_off.png";'/>
+			</a>
+			</div>
+		
+		</div>
+	</div>   
                   
                 
                 
@@ -73,39 +87,41 @@
                         <th scope="col" style="text-align:center;"><p class="tabletitle">ESTENSIONE</p></th>
                         <th scope="col">&nbsp;</th>
                       </tr>
-            
-                      <!--Riga file da SCARICARE esempio icona zip-->
-                      <tr class="trlist">
-                        <td class="tdnomefile"><p class="tablenormal"><b>NOMEFILEDIESEMPIO</b></p></td>
-                        <td class="tdlist" style="text-align:center;">
-                        
-                        <img src="image/download_box/icozip.png" />
-                        
-                        </td>
-                        <td class="tdlist" style="text-align:right;"><p class="tablenormal"><a href="QUI IL FILE DA SCARICARE"><b>SCARICA</b></a></p></td>
-                      </tr>
-                      
-                      <!--Riga file da SCARICARE esempio icona pdf-->
-                      <tr class="trlist">
-                        <td class="tdnomefile"><p class="tablenormal"><b>NOMEFILEDIESEMPIO</b></p></td>
-                        <td class="tdlist" style="text-align:center;">
-                        	
-                        	<img src="image/download_box/icopdf.png" />
-                        	
-                        </td>
-                        <td class="tdlist" style="text-align:right;"><p class="tablenormal"><a href="QUI IL FILE DA SCARICARE"><b>SCARICA</b></a></p></td>
-                      </tr>
-                      
-                      <!--Riga file da SCARICARE esempio icona generale-->
-                      <tr class="trlist">
-                        <td class="tdnomefile"><p class="tablenormal"><b>NOMEFILEDIESEMPIO</b></p></td>
-                        <td class="tdlist" style="text-align:center;">
-                        
-                        <img src="image/download_box/icobo.png" />
-                        
-                        </td>
-                        <td class="tdlist" style="text-align:right;"><p class="tablenormal"><a href="QUI IL FILE DA SCARICARE"><b>SCARICA</b></a></p></td>
-                      </tr>
+
+              <?php
+
+                $path = 'download/';
+                if ($dh = opendir($path)) {
+                    while ((( $file = readdir($dh)) !== false)  ) {
+                        if ( !is_dir($path.$file) ){
+                            $name_array = explode('.', $file);
+                            $estensione = $name_array[count($name_array)-1];
+                            $url_encode_filename = urlencode($file);
+                            $indirizzo = $path . $file;
+
+                            switch ($estensione) {
+                                case 'pdf':
+                                    $image = " <img src=\"image/download_box/icopdf.png\" /> ";
+                                    break;
+                                case 'zip':
+                                    $image = " <img src=\"image/download_box/icozip.png\" /> ";
+                                    break;
+
+                                default:
+                                    $image = " <img src=\"image/download_box/icobo.png\" /> ";
+                                    break;
+                            }
+                            
+                            echo "<tr class=\"trlist\">
+                <td class=\"tdnomefile\"><p class=\"tablenormal\"><b>$file</b></p></td>
+                <td class=\"tdlist\" style=\"text-align:center;\">$image</td>
+                <td class=\"tdlist\" style=\"text-align:right;\"><p class=\"tablenormal\"><a href=\"$indirizzo\"><b>SCARICA</b></a></p></td>
+              </tr>";
+                        }
+                    }
+                    closedir($dh);
+                }
+            ?>
             
                     </table>
                 </div>                   
@@ -127,8 +143,8 @@
              	
                 <div id="foot">
 					<p class="foot">
-                    P.IVA : 12097410924102948 - property of Dritta in diritto - CSB Centro Studi Bolsano<br />
-					:::Designed by Alberto Marà // Powered by Amedeo Ferro:::
+                    P.IVA : 04929920652 - property of Dritta in diritto - CSB <br />
+					:::<a href="http://www.pixosystems.com/">Created by Pixo Systems - Anzio (RM)</a>:::
                     </p>
                 </div>
              

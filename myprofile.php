@@ -1,4 +1,28 @@
-﻿  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+<?php
+/*
+if( empty($_GET['id']) ){
+    header('Location: error.php?code=1');
+    exit();
+}
+*/
+
+//verifica login
+session_start();
+include 'common/verifica_login.php';
+//fine verifica login
+
+
+include 'common/dbmanager.php';
+$managerSql = new dbManager();
+$utente = $managerSql->get_utente($_SESSION['id']);
+if(empty($utente)){
+    header('Location: error.php?code=3');
+    exit();
+}
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -58,19 +82,32 @@
                 
                 
                 
-        	<!--NAVIGAZIONE-->        
-        	<div id="navigation">
-            	
-                <div id="nav_box">
-					<!--BOX DI NAVIGAZIONE-->
-                    <a class="nav_voice" href="index.php">HOME PAGE</a>&nbsp;/
-                    <a class="nav_voice" href="areadownload.php">AREA DOWNLOAD</a>&nbsp;/
-                    <a class="nav_voice">INFO & NOTE LEGALI</a>&nbsp;/
-                    <a class="nav_voice">CONTATTO</a>&nbsp;
-                </div>
-            
-            </div>
-                  
+        	<!--NAVIGAZIONE-->
+	<div id="navigation">
+		<div id="nav_box">
+		
+		
+			
+			<div style="margin-top:10px;">
+			<a class="nav_voice" href="index.php">
+				<img src="common/menu/home_off.png" onmouseover='this.src = "common/menu/home_on.png";' onmouseout='this.src="common/menu/home_off.png";'/>
+			</a>
+			
+			<a class="nav_voice" href="areadownload.php">
+				<img src="common/menu/download_off.png" onmouseover='this.src = "common/menu/download_on.png";' onmouseout='this.src="common/menu/download_off.png";'/>
+			</a>
+			
+			<a class="nav_voice" href="download/Contratto.pdf">
+				<img src="common/menu/note_off.png" onmouseover='this.src = "common/menu/note_on.png";' onmouseout='this.src="common/menu/note_off.png";'/>
+			</a>
+			
+			<a class="nav_voice" href="contatti.php">
+				<img src="common/menu/contact_off.png" onmouseover='this.src = "common/menu/contact_on.png";' onmouseout='this.src="common/menu/contact_off.png";'/>
+			</a>
+			</div>
+		
+		</div>
+	</div>                 
                 
                 
                 
@@ -104,15 +141,12 @@
                         
                             <p class="nodato">NOME</p>
                             <p class="nodato">COGNOME</p>
-                            <p class="nodato">LUOGO DI NASCITA</p>
-                            <p class="nodato">DATA DI NASCITA</p>
-                            <p class="nodato">CODICE FISCALE</p>
-                            
-                            <br />
-                            
-                            <p class="nodato">Username</p>
-                            <p class="nodato">Password</p>
-                            <p class="nodato">Email</p>
+                            <p class="nodato">CODICE FISCALE / PIVA</p>
+                            <p class="nodato">CAP</p>
+                            <p class="nodato">CITTA'</p>
+                            <p class="nodato">INDIRIZZO</p>
+                            <p class="nodato">EMAIL</p>
+                            <p class="nodato">USERNAME</p>
                         
                         </div>
                         
@@ -121,27 +155,23 @@
                             <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
                             <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
                             <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                            <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /><br />
-                
                             <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
                             <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
                             <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                                
+                            <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
                         </div>
                         
                         <div id="user_datiright">
                         
-                            <p id="_name">Alberto</p>
-                            <p id="_surname">Marangelo</p>
-                            <p id="_birthplace">Battipaglia [SA]</p>
-                            <p id="_birthday">03/sett/1984</p>
-                            <p id="_fiscode">MRNLRT84S717AF</p>
-                            
+                            <p id="_name"><?php echo $utente['nome']; ?></p>
+                            <p id="_surname"><?php echo $utente['cognome']; ?></p>
+                            <p id="_fiscode"><?php echo $utente['codice_fiscale']; ?></p>
+                            <p id="_address"><?php echo $utente['cap']; ?></p>
+                            <p id="_address"><?php echo $utente['citta']; ?></p>
+                            <p id="_address"><?php echo $utente['indirizzo']; ?></p>
+                            <p id="_mail"><?php echo $utente['email']; ?></p>
+                            <p id="_user"><?php echo $utente['username']; ?></p>
                             <br />
-                            
-                            <p id="_user">Utente1984</p>
-                            <p id="_pass">miapassword</p>
-                            <p id="_mail">Emailprova@server.it</p>
                         
                         </div>
                         
@@ -161,30 +191,21 @@
                     </a>
                     <br />
                     
-					<div id="news_slide">
-                                
-                                <div class="news">
-                                 <p class="newstitle">LOREM UMPSUM - news1</p>
-                                 <p class="newscontent">                     
-                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                 </p>
-                                </div>	
-                                
-                                <div class="news">
-                                 <p class="newstitle">LOREM UMPSUM - news2</p>
-                                 <p class="newscontent">                     
-                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                 </p>
-                                </div>		
-                                
-                                <div class="news">
-                                 <p class="newstitle">LOREM UMPSUM - news3</p>
-                                 <p class="newscontent">                     
-                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                 </p>
-                                </div>	
-                    
-					</div>
+                        <div id="news_slide">
+                            <?php
+                            $news = $managerSql->get_ultime_news(3);
+                            for($i=0; $i<count($news); $i++){
+                                $notizia = $news[$i];
+                                $notizia['testo'] = substr($notizia['testo'], 0, 200);
+
+                                echo "<div class=\"news\">
+                                     <p class=\"newstitle\">{$notizia['titolo']}</p>
+									 <br />
+                                     <p class=\"newscontent\">{$notizia['testo']}</p>
+                                    </div>";
+                            }
+                            ?>
+                        </div>
                     
                 </div>
                   
@@ -213,14 +234,14 @@
                       <!--titoli tabella-->
                       <tr class="trlist">
                         <th scope="col">&nbsp;</th>
+                        <th scope="col">ID</th>
                         <th scope="col"><p class="tabletitle">NOME FILE</p></th>
-                        <th scope="col"><p class="tabletitle">PAGAMENTO</p></th>
                         <th scope="col"><p class="tabletitle">STATO</p></th>
-                        <th scope="col">&nbsp;</th>
+                        <th scope="col"><p class="tabletitle">ORE CONSULENZA</p></th>
                         <th scope="col">&nbsp;</th>
                       </tr>
             
-                      <!--Riga file no file-->
+                      <!--Riga file no file
                       <tr class="trlist">
                         <td class="tdlist">&nbsp;</td>
                         <td class="tdnomefile"><p class="tablenormal">Al momento non hai inviato nessun file</p></td>
@@ -228,9 +249,9 @@
                         <td class="tdlist"><p class="tablenormal">FERMO</p></td>
                         <td class="tdlist"><p class="tablenormal">&nbsp;</p></td>
                         <td class="tdlist"><p class="tablenormal">--------</p></td>
-                      </tr>
+                      </tr>-->
                       
-                      <!--Riga file da pagare-->
+                      <!--Riga file da pagare
                       <tr class="trlist">
                         <td class="tdlist"><img src="image/uploadlist_box/sticker_uploaded.png" /></td>
                         <td class="tdnomefile"><p class="tablenormal">NOMEFILE.ZIP</p></td>
@@ -238,9 +259,9 @@
                         <td class="tdlist"><p class="tablenormal">FERMO</p></td>
                         <td class="tdlist"><p class="tablenormal"><a href="QUI IL FILE DA SCARICARE">SCARICA</a></p></td>
                         <td class="tdlist"><p class="tablenormal"><a href="#" id="_efile">ELIMINA</a></p></td>
-                      </tr>
+                      </tr>-->
             
-                      <!--Riga file pagati e in attesa-->
+                      <!--Riga file pagati e in attesa
                       <tr class="trlist">
                         <td class="tdlist"><img src="image/uploadlist_box/sticker_uploaded.png" /></td>
                         <td class="tdnomefile"><p class="tablenormal">NOMEFILE-pagato.ZIP</p></td>
@@ -248,9 +269,9 @@
                         <td class="tdlist"><p class="tablenormal"><b>IN ATTESA</b></p></td>
                         <td class="tdlist"><p class="tablenormal">SCARICA</p></td>
                         <td class="tdlist"><p class="tablenormal">ELIMINA</p></td>
-                      </tr>
+                      </tr>-->
             
-                      <!--Riga file pagati e da scaricare-->
+                      <!--Riga file pagati e da scaricare
                       <tr class="trlist">
                         <td class="tdlist"><img src="image/uploadlist_box/sticker_uploaded.png" /></td>
                         <td class="tdnomefile"><p class="tablenormal">NOMEFILE-pagato.ZIP</p></td>
@@ -258,7 +279,55 @@
                         <td class="tdlist"><p class="tablenormal"><b>REGISTRATO</b></p></td>
                         <td class="tdlist"><p class="tablenormal"><a href="QUI IL FILE DA SCARICARE REGISTRATO"><b>SCARICA</b></a></p></td>
                         <td class="tdlist"><p class="tablenormal"><a href="#" id="_efile"><b>ELIMINA</b></a></p></td>
-                      </tr>
+                      </tr>-->
+
+  <?php
+
+    $lista_file = $managerSql->lista_file_by_utente($utente);
+    $num_file = count($lista_file);
+
+    for($i=0; $i<$num_file; $i++){
+        $file=$lista_file[$i];
+        $ore_restanti=0; //qualsiasi numero maggiore di 2 ossia dei giorni di consulenza
+        if($file['data_certificazione']){
+
+            //$differenza=(strtotime(date('Y-m-d')) - strtotime($file['data_certificazione']))/(86400);
+            $arr_data_time = explode(" ", $file['data_certificazione']);
+            $data = $arr_data_time[0];
+            $ora = $arr_data_time[1];
+            $arr_data = explode("-",$data);
+            $arr_ora = explode(':', $ora);
+            $differenza =floor((mktime(date('H')+2, date('i'), date('s'), date('m'), date('d'), date('Y'))-
+                         mktime($arr_ora[0], $arr_ora[1], $arr_ora[2], $arr_data[1], $arr_data[2], $arr_data[0]))/(60*60));
+
+            if( $differenza>48 ){
+                $ore_restanti = 0;
+            }else{
+                $ore_restanti=48-$differenza;
+            }
+        }
+
+        $pagamento = "In Attesa...";
+
+        if( strcmp($file['pagamento'],"non pagato")==0 ){
+            $pagamento = "<a href=\"paga_ora.php?obj={$file['id_file_caricato']}\">Paga ORA</a>";
+        }
+
+        if( strcmp($file['pagamento'],"certificato")==0 ){
+            $pagamento = "Certificato";
+        }
+        echo "<tr class=\"trlist\">
+                        <td class=\"tdlist\"><img src=\"image/uploadlist_box/sticker_uploaded.png\" /></td>
+                        <td class=\"tdlist\">{$file['id_file_caricato']}</td>
+                        <td class=\"tdnomefile\"><p class=\"tablenormal\"><a href=\"utenti/{$utente['username']}/{$file['id_file_caricato']}/{$file['nome_file']}\">{$file['nome_file']}</a></p></td>
+                        <td class=\"tdlist\"><p class=\"tablenormal\">$pagamento</p></td>
+                        <td class=\"tdlist\"><p class=\"tablenormal\">$ore_restanti</p></td>
+                        <td class=\"tdlist\"><p class=\"tablenormal\"><a href=\"elimina_file.php?id={$file['id_file_caricato']}\" onclick=\"javascript: return confirm('Sei sicuro di voler eliminare il file?');\" >Elimina</a></p></td>
+                      </tr>";
+    }
+    
+  ?>
+
                     </table>
                 </div>                   
             
@@ -278,174 +347,77 @@
 							<img src="image/usermod_box/sticker_close.png" style="cursor:pointer; position:absolute; z-index:81694287491; margin-top:0px; margin-left:420px;" onclick="showHide_UsermodBox()" />
 
 							<br />
-                                    
-                                    
-                            <div id="user_datileft">
+                        	<form id="form1" method="post" action="salva_modifiche.php">
+                            <table style="margin-top:-10px;">
+                                <tr>
+                                    <td class="nodato">NOME</td>
+                                    <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /></td>
+                                    <td><input name="nome" type="text" id="nome" maxlength="100" class="inputmod1" value="<?php echo htmlentities($utente['nome']); ?>"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="nodato">COGNOME</td>
+                                    <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /></td>
+                                    <td><input name="cognome" type="text" id="cognome" maxlength="100" class="inputmod1" value="<?php echo htmlentities($utente['cognome']); ?>" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="nodato">CODICE FISCALE / PIVA</td>
+                                    <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /></td>
+                                    <td><input name="codice_fiscale" type="text" id="codice_fiscale" maxlength="16" class="inputmod1" value="<?php echo $utente['codice_fiscale']; ?>" /></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td class="nodato">CAP</td>
+                                    <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /></td>
+                                    <td><input name="cap" type="text" id="cap" maxlength="5" class="inputmod1" value="<?php echo htmlentities($utente['cap']); ?>" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="nodato">CITTA'</td>
+                                    <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /></td>
+                                    <td><input name="citta" type="text" id="citta" maxlength="100" class="inputmod1" value="<?php echo htmlentities($utente['citta']); ?>" /></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td class="nodato">INDIRIZZO</td>
+                                    <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /></td>
+                                    <td><input name="indirizzo" type="text" id="indirizzo" maxlength="150" class="inputmod1" value="<?php echo htmlentities($utente['indirizzo']); ?>" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="nodato">EMAIL</td>
+                                    <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /></td>
+                                    <td><input name="email" type="text" id="email" maxlength="200" class="inputmod1" value="<?php echo htmlentities($utente['email']); ?>" /></td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="modifica" value="fatturazione" />
+                            <input class="submit" type="reset" name="ripristina" id="ripristina" value="Ripristina" style="margin-right:18px;" /><input class="submit" type="submit" name="salva" id="salva" value="Salva Modifiche" />
+                        </form>
+
+                    <form id="form1" method="post" action="salva_modifiche.php">
+
+                        <table>
+                            <tr>
+                                <td class="nodato">Username</td>
+                                <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px; margin-left:40px; margin-right:2px;" /></td>
+                                <td><input name="username" type="text" id="username" maxlength="30" class="inputmod2" value="<?php echo $utente['username']; ?>" readonly /></td>
+                            </tr>
+                            <tr>
+                                <td class="nodato">Vecchia Password</td>
+                                <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px; margin-left:40px; margin-right:2px;" /></td>
+                                <td><input name="password" type="password" id="password" maxlength="20" class="inputmod2"/></td>
+                            </tr>
+                            <tr>
+                                <td class="nodato">Nuova Password</td>
+                                <td><img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px; margin-left:40px; margin-right:2px;" /></td>
+                                <td><input name="nuova_password" type="password" id="nuova_password" maxlength="20" class="inputmod2" /></td>
+                            </tr>
+
+                        </table>
+                        <input type="hidden" name="modifica" value="password" />
+                        <input class="submit" type="reset" name="ripristina" id="ripristina" value="Ripristina"  style="margin-right:16px;"/>
+                        <input class="submit" type="submit" name="salva" id="salva" value="Modifica Password" />
+                    </form>
                                         
-                            	<p class="nodato">NOME</p>
-                                <p class="nodato">COGNOME</p>
-                                <p class="nodato">LUOGO DI NASCITA</p>
-                                <p class="nodato">DATA DI NASCITA</p>
-                                <p class="nodato">CODICE FISCALE</p>
-                                            
-                                <br />
-                                            
-                                <p class="nodato">Username</p>
-                                <p class="nodato">Password</p>
-                                <p class="nodato">Ripeti</p>
-                                <p class="nodato">Email</p>
-                                        
-                              </div>
-                                        
-                              <div id="arrowwrap">
-                              	<img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                                <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                                <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                                <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                                <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" /><br />
-                                
-                                <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                                <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                                <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                                <img src="image/user_box/sticker_arrow.png" style="display:block; padding-top:3px;" />
-                              </div>
-                                        
-                              <div id="form_datiright">
-                              	<form id="modprofile">
-                                	<input class="inputmod_disable" disabled="disabled" type="text" value="Inscerisci il tuo nome reale" /><br />
-                                    <input class="inputmod_disable" disabled="disabled" type="text" value="Inscerisci il tuo cognome reale" /><br />
-                                    <input class="inputmod1" type="text" value="Inscerisci dove sei nato" />&nbsp;
-                                                
-                                    				<select class="inputmod_provincia" name="provincia" >
-                                                
-                                                    <option value="Agrigento (Sicilia)">				AG</option>
-                                                    <option value="Alessandria (Piemonte)">				AL</option>
-                                                    <option value="Ancona (Marche)">					AN</option>
-                                                    <option value="Aosta (Valle d'Aosta)">				AO</option>
-                                                    <option value="Arezzo (Toscana)">					AR</option>
-                                                    <option value="Ascoli Piceno (Marche)">				AP</option>
-                                                    <option value="Asti (Piemonte)">					AT</option>
-                                                    <option value="Avellino (Campania)">				AV</option>
-                                                    <option value="Bari (Puglia)">						BA</option>
-                                                    <option value="Barletta-Andria-Trani (Puglia)">		BT</option>
-                                                    <option value="Belluno (Veneto)">					BL</option>
-                                                    <option value="Benevento (Campania)">				BN</option>
-                                                    <option value="Bergamo (Lombardia)">				BG</option>
-                                                    <option value="Biella (Piemonte)">					BI</option>
-                                                    <option value="Bologna (Emilia-Romagna)">			BO</option>
-                                                    <option value="Bolzano (Trentino-Alto Adige)">		BZ</option>
-                                                    <option value="Brescia (Lombardia)">				BS</option>
-                                                    <option value="Brindisi (Puglia)">					BR</option>
-                                                    <option value="Cagliari (Sardegna)">				CA</option>
-                                                    <option value="Caltanissetta (Sicilia)">			CL</option>
-                                                    <option value="Campobasso (Molise)">				CB</option>
-                                                    <option value="Carbonia-Iglesias (Sardegna)">		CI</option>
-                                                    <option value="Caserta (Campania)">					CE</option>
-                                                    <option value="Catania (Sicilia)">					CT</option>
-                                                    <option value="Catanzaro (Calabria)">				CZ</option>
-                                                    <option value="Chieti (Abruzzo)">					CH</option>
-                                                    <option value="Como (Lombardia)">					CO</option>
-                                                    <option value="Cosenza (Calabria)">					CS</option>
-                                                    <option value="Cremona (Lombardia)">				CR</option>
-                                                    <option value="Crotone (Calabria)">					KR</option>
-                                                    <option value="Cuneo (Piemonte)">					CN</option>
-                                                    <option value="Enna (Sicilia)">						EN</option>
-                                                    <option value="Fermo (Marche)">						FM</option>
-                                                    <option value="Ferrara (Emilia-Romagna)">			FE</option>
-                                                    <option value="Firenze (Toscana)">					FI</option>
-                                                    <option value="Foggia (Puglia)">					FG</option>
-                                                    <option value="Forlì-Cesena (Emilia-Romagna)">		FC</option>
-                                                    <option value="Frosinone (Lazio)">					FR</option>
-                                                    <option value="Genova (Liguria)">					GE</option>
-                                                    <option value="Gorizia (Friuli-Venezia Giulia)">	GO</option>
-                                                    <option value="Grosseto (Toscana)">					GR</option>
-                                                    <option value="Imperia (Liguria)">					IM</option>
-                                                    <option value="Isernia (Molise)">					IS</option>
-                                                    <option value="La Spezia (Liguria)">				SP</option>
-                                                    <option value="L'Aquila (Abruzzo)">					AQ</option>
-                                                    <option value="Latina (Lazio)">						LT</option>
-                                                    <option value="Lecce (Puglia)">						LE</option>
-                                                    <option value="Lecco (Lombardia)">					LC</option>
-                                                    <option value="Livorno (Toscana)">					LI</option>
-                                                    <option value="Lodi (Lombardia)">					LO</option>
-                                                    <option value="Lucca (Toscana)">					LU</option>
-                                                    <option value="Macerata (Marche)">					MC</option>
-                                                    <option value="Mantova (Lombardia)">				MN</option>
-                                                    <option value="Massa-Carrara (Toscana)">			MS</option>
-                                                    <option value="Matera (Basilicata)">				MT</option>
-                                                    <option value="Messina (Sicilia)">					ME</option>
-                                                    <option value="Milano (Lombardia)">					MI</option>
-                                                    <option value="Modena (Emilia-Romagna)">			MO</option>
-                                                    <option value="Monza e della Brianza (Lombardia)">	MB</option>
-                                                    <option value="Napoli (Campania)">					NA</option>
-                                                    <option value="Novara (Piemonte)">					NO</option>
-                                                    <option value="Nuoro (Sardegna)">					NU</option>
-                                                    <option value="Olbia-Tempio (Sardegna)">			OT</option>
-                                                    <option value="Oristano (Sardegna)">				OR</option>
-                                                    <option value="Padova (Veneto)">					PD</option>
-                                                    <option value="Palermo (Sicilia)">					PA</option>
-                                                    <option value="Parma (Emilia-Romagna)">				PR</option>
-                                                    <option value="Pavia (Lombardia)">					PV</option>
-                                                    <option value="Perugia (Umbria)">					PG</option>
-                                                    <option value="Pesaro e Urbino (Marche)">			PU</option>
-                                                    <option value="Pescara (Abruzzo)">					PE</option>
-                                                    <option value="Piacenza (Emilia-Romagna)">			PC</option>
-                                                    <option value="Pisa (Toscana)">						PI</option>
-                                                    <option value="Pistoia (Toscana)">					PT</option>
-                                                    <option value="Pordenone (Friuli-Venezia Giulia)">	PN</option>
-                                                    <option value="Potenza (Basilicata)">				PZ</option>
-                                                    <option value="Prato (Toscana)">					PO</option>
-                                                    <option value="Ragusa (Sicilia)">					RG</option>
-                                                    <option value="Ravenna (Emilia-Romagna)">			RA</option>
-                                                    <option value="Reggio Calabria (Calabria)">			RC</option>
-                                                    <option value="Reggio Emilia (Emilia-Romagna)">		RE</option>
-                                                    <option value="Rieti (Lazio)">						RI</option>
-                                                    <option value="Rimini (Emilia-Romagna)">			RN</option>
-                                                    <option value="Roma (Lazio)">						RM</option>
-                                                    <option value="Rovigo (Veneto)">					RO</option>
-                                                    <option value="Salerno (Campania)">					SA</option>
-                                                    <option value="Medio Campidano (Sardegna)">			VS</option>
-                                                    <option value="Sassari (Sardegna)">					SS</option>
-                                                    <option value="Savona (Liguria)">					SV</option>
-                                                    <option value="Siena (Toscana)">					SI</option>
-                                                    <option value="Siracusa (Sicilia)">					SR</option>
-                                                    <option value="Sondrio (Lombardia)">				SO</option>
-                                                    <option value="Taranto (Puglia)">					TA</option>
-                                                    <option value="Teramo (Abruzzo)">					TE</option>
-                                                    <option value="Terni (Umbria)">						TR</option>
-                                                    <option value="Torino (Piemonte)">					TO</option>
-                                                    <option value="Ogliastra (Sardegna)">				OG</option>
-                                                    <option value="Trapani (Sicilia)">					TP</option>
-                                                    <option value="Trento (Trentino-Alto Adige)">		TN</option>
-                                                    <option value="Treviso (Veneto)">					TV</option>
-                                                    <option value="Trieste (Friuli-Venezia Giulia)">	TS</option>
-                                                    <option value="Udine (Friuli-Venezia Giulia)">		UD</option>
-                                                    <option value="Varese (Lombardia)">					VA</option>
-                                                    <option value="Venezia (Veneto)">					VE</option>
-                                                    <option value="Verbano-Cusio-Ossola (Piemonte)">	VB</option>
-                                                    <option value="Vercelli (Piemonte)">				VC</option>
-                                                    <option value="Verona (Veneto)">					VR</option>
-                                                    <option value="Vibo Valentia (Calabria)">			VV</option>
-                                                    <option value="Vicenza (Veneto)">					VI</option>
-                                                    <option value="Viterbo (Lazio)">					VT</option>
-                                                
-                                                	</select><br />
-                                                
-                                    <input class="inputmod1" type="text" value="data" /><br />
-                                    <input class="inputmod1" type="text" value="Inscerisci il codice fiscale" /><br />
-                                                
-                                    <br />
-                                                
-                                    <input class="inputmod2" type="text" value="Nome utente" /><br />
-                                    <input class="inputmod2" type="password" value="Password" /><br />
-                                    <input class="inputmod2" type="password" value="Password" /><br />
-                                    <input class="inputmod2" type="text" value="es. miaMail@server.it" /><br />
-                                                
-                                    <br />
-                                    
-                                    <input class="submit" type="submit" />
-                                    </form>
-                              </div>
                          </div>
                     </div>
                   
@@ -479,8 +451,8 @@
                                 
                                 <div id="form_datiright">
                                     
-                                    <form id="modprofile">
-                                        <input class="inputmod1" type="file" /><br />
+                                    <form id="modprofile" action="file_upload.php" method="post" enctype="multipart/form-data">
+                                        <input name="nuovo_file" id="nuovo_file" class="inputmod1" type="file" /><br />
                                         <input class="submit" type="submit" value="Prosegui - Carica il file" />
                                     </form>
                                 
@@ -503,14 +475,13 @@
              	
                 <div id="foot">
 					<p class="foot">
-                    P.IVA : 12097410924102948 - property of Dritta in diritto - CSB Centro Studi Bolsano<br />
-					:::Designed by Alberto Marà // Powered by Amedeo Ferro:::
+                    P.IVA : 04929920652 - property of Dritta in diritto - CSB <br />
+					:::<a href="http://www.pixosystems.com/">Created by Pixo Systems - Anzio (RM)</a>:::
                     </p>
                 </div>
              
              </div>
-
-
+                        
 
         </body>
     </html>

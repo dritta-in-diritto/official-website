@@ -1,3 +1,7 @@
+<?php
+include '../common/verifica_adm_mode.php';
+?>
+
 ﻿  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
@@ -60,8 +64,7 @@
                 <div id="nav_box">
 					<!--BOX DI NAVIGAZIONE-->
                     <a class="nav_voice" href="admin.php">ADMIN PAGE</a>&nbsp;/
-                    <a class="nav_voice" href="../myprofile.php">VISTA UTENTE</a>&nbsp;/
-                    <a class="nav_voice" href="../index.php">LOG OUT</a>&nbsp;
+                    <a class="nav_voice" href="logout_adm.php">LOG OUT</a>&nbsp;
                 </div>
                 
             </div>
@@ -74,7 +77,7 @@
             	<br />
             	
                 <div id="admin_box">
-	                <img src="../image/admin_box/sticker_modificaprofilo.png" style="margin-bottom:-50px; margin-left:65px; " onclick="showHide_UsermodBox()"/>
+	                
                 	<img src="../image/admin_box/Sticker_aministrazione.png" style="margin-left:50px; margin-top:30px;" />
                     
                     
@@ -299,8 +302,8 @@
              	
                 <div id="foot">
 					<p class="foot">
-                    P.IVA : 12097410924102948 - property of Dritta in diritto - CSB Centro Studi Bolsano<br />
-					:::Designed by Alberto Marà // Powered by Amedeo Ferro:::
+                    P.IVA : 04929920652 - property of Dritta in diritto - CSB <br />
+					:::Designed by Alberto Marà // Developed by Amedeo Ferro:::
                     </p>
                 </div>
              
